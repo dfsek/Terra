@@ -17,6 +17,7 @@
 
 package com.dfsek.terra.mod.handle;
 
+import com.mojang.brigadier.StringReader;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.block.Blocks;
 import net.minecraft.command.argument.BlockArgumentParser;
@@ -35,8 +36,9 @@ public class MinecraftWorldHandle implements WorldHandle {
     
     @Override
     public @NotNull BlockState createBlockState(@NotNull String data) {
+        BlockArgumentParser parser = new BlockArgumentParser(new StringReader(data), true);
         try {
-            net.minecraft.block.BlockState state = BlockArgumentParser.block(Registry.BLOCK, data, true).blockState();
+            net.minecraft.block.BlockState state = parser.parse(true).getBlockState();
             if(state == null) throw new IllegalArgumentException("Invalid data: " + data);
             return (BlockState) state;
         } catch(CommandSyntaxException e) {

@@ -1,41 +1,26 @@
 package com.dfsek.terra.mod;
 
 import com.dfsek.tectonic.api.TypeRegistry;
-
 import com.dfsek.tectonic.api.depth.DepthTracker;
 import com.dfsek.tectonic.api.exception.LoadException;
-
-import com.dfsek.terra.AbstractPlatform;
-
-import com.dfsek.terra.api.addon.BaseAddon;
-import com.dfsek.terra.api.world.biome.PlatformBiome;
-
-import com.dfsek.terra.mod.config.ProtoPlatformBiome;
-
-import com.dfsek.terra.mod.util.PresetUtil;
-
-import net.minecraft.command.CommandSource;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.BuiltinRegistries;
-import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.Biome.Precipitation;
 import net.minecraft.world.biome.BiomeEffects.GrassColorModifier;
-import net.minecraft.world.gen.WorldPreset;
 
 import java.util.List;
 import java.util.Locale;
-import java.util.function.BiConsumer;
-import java.util.function.Consumer;
+
+import com.dfsek.terra.AbstractPlatform;
+import com.dfsek.terra.api.addon.BaseAddon;
+import com.dfsek.terra.api.world.biome.PlatformBiome;
+import com.dfsek.terra.mod.config.ProtoPlatformBiome;
 
 
 public abstract class ModPlatform extends AbstractPlatform {
     public abstract MinecraftServer getServer();
     
-    public void registerWorldTypes(BiConsumer<Identifier, WorldPreset> registerFunction) {
-        getRawConfigRegistry()
-                .forEach(pack -> PresetUtil.createDefault(pack).apply(registerFunction));
-    }
     
     @Override
     public void register(TypeRegistry registry) {

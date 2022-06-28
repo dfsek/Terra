@@ -19,7 +19,6 @@ package com.dfsek.terra.mod.handle;
 
 import com.mojang.brigadier.StringReader;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import net.minecraft.command.CommandRegistryAccess;
 import net.minecraft.command.argument.ItemStackArgumentType;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
@@ -30,7 +29,6 @@ import java.util.stream.Collectors;
 import com.dfsek.terra.api.handle.ItemHandle;
 import com.dfsek.terra.api.inventory.Item;
 import com.dfsek.terra.api.inventory.item.Enchantment;
-import com.dfsek.terra.mod.CommonPlatform;
 
 
 public class MinecraftItemHandle implements ItemHandle {
@@ -38,8 +36,7 @@ public class MinecraftItemHandle implements ItemHandle {
     @Override
     public Item createItem(String data) {
         try {
-            return (Item) new ItemStackArgumentType(new CommandRegistryAccess(
-                    CommonPlatform.get().getServer().getRegistryManager())).parse(new StringReader(data)).getItem();
+            return (Item) new ItemStackArgumentType().parse(new StringReader(data)).getItem();
         } catch(CommandSyntaxException e) {
             throw new IllegalArgumentException("Invalid item data \"" + data + "\"", e);
         }

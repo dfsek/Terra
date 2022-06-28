@@ -42,7 +42,10 @@ public final class Codecs {
                                                           .forGetter(TerraBiomeSource::getBiomeRegistry),
                                                CONFIG_PACK.fieldOf("pack")
                                                           .stable()
-                                                          .forGetter(TerraBiomeSource::getPack))
+                                                          .forGetter(TerraBiomeSource::getPack),
+                                               Codec.LONG.stable()
+                                                       .fieldOf("seed")
+                                                       .forGetter(TerraBiomeSource::getSeed))
                                         .apply(instance, instance.stable(TerraBiomeSource::new)));
     
     public static final Codec<MinecraftChunkGeneratorWrapper> MINECRAFT_CHUNK_GENERATOR_WRAPPER = RecordCodecBuilder
@@ -60,7 +63,10 @@ public final class Codecs {
                                        .forGetter(MinecraftChunkGeneratorWrapper::getPack),
                             ChunkGeneratorSettings.REGISTRY_CODEC.fieldOf("settings")
                                                                  .stable()
-                                                                 .forGetter(MinecraftChunkGeneratorWrapper::getSettings)
+                                                                 .forGetter(MinecraftChunkGeneratorWrapper::getSettings),
+                            Codec.LONG.fieldOf("seed")
+                                    .stable()
+                                    .forGetter(MinecraftChunkGeneratorWrapper::getSeed)
                                               ).apply(instance, instance.stable(MinecraftChunkGeneratorWrapper::new))
                    );
 }

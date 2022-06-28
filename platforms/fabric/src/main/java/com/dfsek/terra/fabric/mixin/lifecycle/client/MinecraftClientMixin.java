@@ -17,8 +17,15 @@
 
 package com.dfsek.terra.fabric.mixin.lifecycle.client;
 
+import com.dfsek.terra.fabric.TerraGeneratorType;
+import com.dfsek.terra.mod.ModPlatform;
+
+import com.dfsek.terra.mod.mixin.access.GeneratorTypeAccessor;
+
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.RunArgs;
+import net.minecraft.client.world.GeneratorType;
+import net.minecraft.text.LiteralText;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -37,5 +44,11 @@ public class MinecraftClientMixin {
                                         shift = At.Shift.BEFORE))
     public void injectConstructor(RunArgs args, CallbackInfo callbackInfo) {
         FabricEntryPoint.initialize();
+        FabricEntryPoint.getPlatform().getConfigRegistry().forEach(pack -> {
+            final GeneratorType generatorType = new TerraGeneratorType(pack);
+            //noinspection ConstantConditions
+            ((GeneratorTypeAccessor) generatorType).setDisplayName(new LiteralText("Terra:" + pack.getID()));
+            GeneratorTypeAccessor.getValues().add(1, generatorType);
+        });
     }
 }

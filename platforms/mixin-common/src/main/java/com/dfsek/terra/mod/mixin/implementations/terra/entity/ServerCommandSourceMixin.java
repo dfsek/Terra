@@ -20,6 +20,7 @@ package com.dfsek.terra.mod.mixin.implementations.terra.entity;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Implements;
@@ -48,7 +49,7 @@ public abstract class ServerCommandSourceMixin {
     public abstract net.minecraft.entity.@Nullable Entity getEntity();
     
     public void terra$sendMessage(String message) {
-        sendFeedback(Text.literal(message), true);
+        sendFeedback(new LiteralText(message), true);
     }
     
     @Nullable

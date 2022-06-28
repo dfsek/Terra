@@ -22,8 +22,6 @@ import com.dfsek.terra.api.world.biome.generation.BiomeProvider;
 import com.dfsek.terra.mod.data.Codecs;
 import com.dfsek.terra.mod.config.ProtoPlatformBiome;
 
-import com.dfsek.terra.mod.util.SeedHack;
-
 import com.mojang.serialization.Codec;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryEntry;
@@ -40,8 +38,9 @@ public class TerraBiomeSource extends BiomeSource {
     private static final Logger LOGGER = LoggerFactory.getLogger(TerraBiomeSource.class);
     private final Registry<net.minecraft.world.biome.Biome> biomeRegistry;
     private ConfigPack pack;
+    private final long seed;
     
-    public TerraBiomeSource(Registry<net.minecraft.world.biome.Biome> biomes, ConfigPack pack) {
+    public TerraBiomeSource(Registry<net.minecraft.world.biome.Biome> biomes, ConfigPack pack, long seed) {
         super(StreamSupport
                       .stream(pack.getBiomeProvider()
                                   .getBiomes()
@@ -49,8 +48,13 @@ public class TerraBiomeSource extends BiomeSource {
                       .map(b -> biomes.getOrCreateEntry(((ProtoPlatformBiome) b.getPlatformBiome()).getDelegate())));
         this.biomeRegistry = biomes;
         this.pack = pack;
+        this.seed = seed;
         
         LOGGER.debug("Biomes: " + getBiomes());
+    }
+    
+    public long getSeed() {
+        return seed;
     }
     
     @Override
@@ -59,11 +63,16 @@ public class TerraBiomeSource extends BiomeSource {
     }
     
     @Override
+    public BiomeSource withSeed(long seed) {
+        return new TerraBiomeSource(biomeRegistry, pack, seed);
+    }
+    
+    @Override
     public RegistryEntry<net.minecraft.world.biome.Biome> getBiome(int biomeX, int biomeY, int biomeZ, MultiNoiseSampler noiseSampler) {
         return biomeRegistry
                 .entryOf(((ProtoPlatformBiome) pack
                                  .getBiomeProvider()
-                                 .getBiome(biomeX << 2, biomeY << 2, biomeZ << 2, SeedHack.getSeed(noiseSampler))
+                                 .getBiome(biomeX << 2, biomeY << 2, biomeZ << 2, seed)
                                  .getPlatformBiome()).getDelegate()
                         );
     }

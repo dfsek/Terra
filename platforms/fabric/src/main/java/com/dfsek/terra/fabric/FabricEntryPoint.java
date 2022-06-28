@@ -58,7 +58,6 @@ public class FabricEntryPoint implements ModInitializer {
         getPlatform().getEventManager().callEvent(
                 new PlatformInitializationEvent());
         BiomeUtil.registerBiomes();
-        CommonPlatform.get().registerWorldTypes((id, preset) -> BuiltinRegistries.add(BuiltinRegistries.WORLD_PRESET, id, preset));
     }
     
     @Override
