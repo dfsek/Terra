@@ -4,6 +4,7 @@
     "package": "com.dfsek.terra.mod.mixin",
     "compatibilityLevel": "JAVA_17",
     "mixins": [
+        "BiomeAccessor",
         "access.MobSpawnerLogicAccessor",
         "access.StateAccessor",
         "access.StructureAccessorAccessor",

@@ -7,6 +7,7 @@ import com.dfsek.terra.api.block.entity.Sign;
 
 import com.dfsek.terra.api.config.ConfigPack;
 import com.dfsek.terra.mod.config.VanillaBiomeProperties;
+import com.dfsek.terra.mod.mixin.BiomeAccessor;
 import com.dfsek.terra.mod.mixin_ifaces.FloraFeatureHolder;
 
 import net.minecraft.block.entity.LootableContainerBlockEntity;
@@ -139,6 +140,7 @@ public final class MinecraftUtil {
         vanilla.getParticleConfig().ifPresent(effects::particleConfig);
         
         return builder
+                .category(((BiomeAccessor) (Object) vanilla).getCategory())
                 .temperature(vanilla.getTemperature())
                 .downfall(vanilla.getDownfall())
                 .effects(effects.build())
