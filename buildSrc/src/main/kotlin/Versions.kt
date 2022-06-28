@@ -4,7 +4,7 @@ object Versions {
         const val paralithic = "0.7.0"
         const val strata = "1.1.1"
         
-        const val cloud = "1.7.0"
+        const val cloud = "1.6.0"
         
         const val slf4j = "1.7.36"
         const val log4j_slf4j_impl = "2.14.1"
@@ -19,9 +19,9 @@ object Versions {
     
     object Fabric {
         const val fabricLoader = "0.14.2"
-        const val fabricAPI = "0.56.0+1.19"
-        const val minecraft = "1.19"
-        const val yarn = "$minecraft+build.1"
+        const val fabricAPI = "0.56.0+1.18.2"
+        const val minecraft = "1.18.2"
+        const val yarn = "$minecraft+build.3"
         const val mixin = "0.11.2+mixin.0.8.5"
         const val loom = "0.12-SNAPSHOT"
         const val loomQuiltflower = "1.7.1"
@@ -29,8 +29,8 @@ object Versions {
     }
     
     object Mod {
-        const val minecraft = "1.19"
-        const val yarn = "$minecraft+build.1"
+        const val minecraft = "1.18.2"
+        const val yarn = "$minecraft+build.3"
         const val fabricLoader = "0.14.2"
     
         const val architecuryLoom = "0.12.0-SNAPSHOT"
@@ -38,9 +38,9 @@ object Versions {
     }
     
     object Forge {
-        const val minecraft = "1.19"
+        const val minecraft = "1.18.2"
         const val forge = "$minecraft-41.0.38"
-        const val yarn = "$minecraft+build.1"
+        const val yarn = "$minecraft+build.3"
         const val architecuryLoom = "0.12.0-SNAPSHOT"
     }
     
